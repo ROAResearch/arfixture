@@ -12,7 +12,7 @@ abstract class DatabaseTestCase extends TestCase
      */
     private $_db;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $databases = self::getParam('databases');
@@ -28,7 +28,7 @@ abstract class DatabaseTestCase extends TestCase
         $this->mockApplication();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         if ($this->_db) {
             $this->_db->close();

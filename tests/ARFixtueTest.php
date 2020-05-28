@@ -11,7 +11,7 @@ use Yii;
  */
 class ARFixtueTest extends DatabaseTestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->mockApplication();
