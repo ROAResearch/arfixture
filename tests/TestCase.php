@@ -1,6 +1,6 @@
 <?php
 
-namespace tecnocen\arfixture\tests;
+namespace roaresearch\yii2\arfixture\tests;
 
 use yii\helpers\ArrayHelper;
 

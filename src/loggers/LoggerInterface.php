@@ -1,6 +1,6 @@
 <?php
 
-namespace tecnocen\arfixture\loggers;
+namespace roaresearch\yii2\arfixture\loggers;
 
 /**
  * @author Angel (Faryshta) Guevara <angeldelcaos@gmail.com>
@@ -70,30 +70,30 @@ interface LoggerInterface
     /**
      * @param boolean $silent if this logger must show error messages only.
      */
-    public function setSilent($silent);
+    public function setSilent(bool $silent);
 
     /**
     * @return boolean $silent if this logger must show error messages only.
      */
-    public function getSilent();
+    public function getSilent(): bool;
 
     /**
      * If [[getSilent()]] returns 'false' notify a message.
      *
      * @param string $message
-     * @param string $args argument to render the message
+     * @param string[] $args argument to render the message
      * @see setSilent()
      * @see getSilent()
      */
-    public function notify($message, $args = []);
+    public function notify(string $message, array $args = []);
 
     /**
      * Show an error message.
      *
      * @param string $message
-     * @param string $args argument to render the message
+     * @param string[] $args argument to render the message
      */
-    public function error($message, $args = []);
+    public function error(string $message, array $args = []);
 
     /**
      * Applies format to distinguish class names.
@@ -101,7 +101,7 @@ interface LoggerInterface
      * @param string $class
      * @return string
      */
-    public function formatClass($class);
+    public function formatClass(string $class): string;
 
     /**
      * Applies format to distinguish record alias.
@@ -109,7 +109,7 @@ interface LoggerInterface
      * @param string $alias
      * @return string
      */
-    public function formatAlias($alias);
+    public function formatAlias(string $alias): string;
 
     /**
      * Applies format to distinguish attribute names.
@@ -117,7 +117,7 @@ interface LoggerInterface
      * @param string $attribute
      * @return string
      */
-    public function formatAttribute($attribute);
+    public function formatAttribute(string $attribute): string;
 
     /**
      * Applies format to distinguish messages.
@@ -125,84 +125,84 @@ interface LoggerInterface
      * @param string $message
      * @return string
      */
-    public function formatMessage($message);
+    public function formatMessage(string $message): string;
 
     /**
      * Notification that the fixture started
-     * @param array $args arguments to render the message. Admits options:
+     * @param string[] $args arguments to render the message. Admits options:
      * - class: string class name of the fixture.
      * @see notify()
      */
-    public function startFixture($args = []);
+    public function startFixture(array $args = []);
 
     /**
      * Notification that the record was saved successfully.
-     * @param array $args arguments to render the message. Admits options:
+     * @param string[] $args arguments to render the message. Admits options:
      * - alias: string alias name of the record.
      * @see notification()
      */
-    public function savedRecord($args = []);
+    public function savedRecord(array $args = []);
 
     /**
     * Notification that the record will compare the expected validation
-    * @param array $args arguments to render the message. Admits options:
+    * @param string[] $args arguments to render the message. Admits options:
     * - alias: string alias name of the record.
     * @see notify()
     */
-    public function checkValidation($args = []);
+    public function checkValidation(array $args = []);
 
     /**
      * Notification when an attribute is validated correctly.
-     * @param array $args arguments to render the message. Admits options:
+     * @param string[] $args arguments to render the message. Admits options:
      * - attribute: string attribute name.
      * @see notify()
      */
-    public function validationCorrect($args = []);
+    public function validationCorrect(array $args = []);
 
     /**
      * Notification that the fixture finished
-     * @param array $args arguments to render the message. Admits options:
+     * @param string[] $args arguments to render the message. Admits options:
      * - class: string class name of the fixture.
      * - passed: integer tests passed.
      * - failed: integer tests failed
      * @see notify()
      */
-    public function finishFixture($args = []);
+    public function finishFixture(array $args = []);
 
     /**
      * Error notification that saving a record throws an exception
-     * @param array $args arguments to render the message. Admits options:
+     * @param string[] $args arguments to render the message. Admits options:
      * - alias: string alias name of the record.
      * - exception: string class name of the exception.
      * - message: string message found on the exception.
      * @see error()
      */
-    public function saveException($args = []);
+    public function saveException(array $args = []);
 
     /**
      * Error notfication that an expected validation error was not found.
-     * @param array $args arguments to render the message. Admits options:
+     * @param string[] $args arguments to render the message. Admits options:
      * - attribute: string attribute name.
      * @see error()
      */
-    public function validationErrorNotFound($args = []);
+    public function validationErrorNotFound(array $args = []);
 
     /**
      * Error notfication when an expected validation message was not found.
-     * @param array $args arguments to render the message. Admits options:
+     * @param string[] $args arguments to render the message. Admits options:
      * - attribute: string attribute name.
      * - message: string expected error message.
      * - error: string received error message.
      * @see error()
      */
-    public function validationMessageNotFound($args = []);
+    public function validationMessageNotFound(array $args = []);
 
     /**
      * Notification that the validation found an unexpected error.
-     * @param array $args arguments to render the message. Admits options:
+     * @param string[] $args arguments to render the message. Admits options:
      * - attribute: string attribute name.
      * - error: string received error message.
      * @see error()
      */
-    public function validationUnexpected($args = []);
+    public function validationUnexpected(array $args = []);
 }

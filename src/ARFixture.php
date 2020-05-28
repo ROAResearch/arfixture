@@ -2,13 +2,15 @@
 
 namespace roaresearch\yii2\arfixture;
 
-use roaresearch\yii2\arfixture\loggers\ConsoleLogger;
-use roaresearch\yii2\arfixture\loggers\LoggerInterface;
+use roaresearch\yii2\arfixture\loggers\{ConsoleLogger, LoggerInterface};
 use Yii;
-use yii\base\InvalidConfigException;
-use yii\base\Model;
-use yii\db\ActiveRecord;
-use yii\helpers\ArrayHelper;
+use yii\{
+    base\InvalidConfigException,
+    base\Model,
+    db\ActiveRecord,
+    db\ActiveRecordInterface,
+    helpers\ArrayHelper
+};
 
 /**
  * @author Angel (Faryshta) Guevara <angeldelcaos@gmail.com>
@@ -21,7 +23,7 @@ class ARFixture extends \yii\test\ActiveFixture
     public $scenarioDefault = Model::SCENARIO_DEFAULT;
 
     /**
-     * @var Logger used for the `notify()` and `error()`` methods
+     * @var LoggerInterface used for the `notify()` and `error()`` methods
      */
     public $logger = [];
 
@@ -48,14 +50,14 @@ class ARFixture extends \yii\test\ActiveFixture
         parent::init();
         if (is_array($this->logger)) {
             $this->logger = Yii::createObject(ArrayHelper::merge(
-                ['class' => ConsoleLogger::className()],
+                ['class' => ConsoleLogger::class],
                 $this->logger
             ));
         }
         if (!$this->logger instanceof LoggerInterface) {
             throw new InvalidConfigException(
                 '`$logger` must impelement the '
-                . '`tecnocen\\arfixture\\loggers\\LoggerInterface`.'
+                    . LoggerInterface::class. '.'
             );
         }
     }
@@ -103,10 +105,12 @@ class ARFixture extends \yii\test\ActiveFixture
      *   the methods `Model::load()` and `Model::validate()`, if not defined
      *   the [[$scenarioDefault]] will be used
      *
-     * @return ActiveRecord
+     * @return ActiveRecordInterface
      */
-    protected function evaluateRecord($alias, $record)
-    {
+    protected function evaluateRecord(
+        string $alias,
+        array $record
+    ): ActiveRecordInterface {
         $formattedAlias = $this->logger->formatAlias($alias);
 
         $attributeErrors = ArrayHelper::remove($record, 'attributeErrors', []);
@@ -140,6 +144,7 @@ class ARFixture extends \yii\test\ActiveFixture
 
         $this->logger->checkValidation(['alias' => $formattedAlias]);
         $this->checkErrors($model->getFirstErrors(), $attributeErrors);
+
         return $model;
     }
 
@@ -162,7 +167,7 @@ class ARFixture extends \yii\test\ActiveFixture
      * ]
      * ```
      */
-    public function checkErrors($modelErrors, $attributeErrors)
+    public function checkErrors(array $modelErrors, array $attributeErrors)
     {
         foreach ($attributeErrors as $key => $value) {
             if (is_int($key)) {

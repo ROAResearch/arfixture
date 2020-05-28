@@ -1,6 +1,6 @@
 <?php
 
-namespace tecnocen\arfixture\loggers;
+namespace roaresearch\yii2\arfixture\loggers;
 
 use Yii;
 use yii\helpers\Console;
@@ -39,7 +39,7 @@ class ConsoleLogger extends \yii\base\Component implements LoggerInterface
     /**
      * @inheritdoc
      */
-    public function setSilent($silent)
+    public function setSilent(bool $silent)
     {
         $this->silent = (bool)$silent;
     }
@@ -47,7 +47,7 @@ class ConsoleLogger extends \yii\base\Component implements LoggerInterface
     /**
      * @inheritdoc
      */
-    public function getSilent()
+    public function getSilent(): bool
     {
         return $silent;
     }
@@ -55,7 +55,7 @@ class ConsoleLogger extends \yii\base\Component implements LoggerInterface
     /**
      * @inheritdoc
      */
-    public function notify($message, $args = [])
+    public function notify(string $message, array $args = [])
     {
         if (!$this->silent) {
             Console::output(Yii::t(
@@ -69,7 +69,7 @@ class ConsoleLogger extends \yii\base\Component implements LoggerInterface
     /**
      * @inheritdoc
      */
-    public function error($message, $args = [])
+    public function error(string $message, array $args = [])
     {
         Console::error(Yii::t(
             'yii',
@@ -81,7 +81,7 @@ class ConsoleLogger extends \yii\base\Component implements LoggerInterface
     /**
      * @inheritdoc
      */
-    public function formatClass($class)
+    public function formatClass(string $class): string
     {
         return Console::ansiFormat($class, [Console::FG_CYAN]);
     }
@@ -89,7 +89,7 @@ class ConsoleLogger extends \yii\base\Component implements LoggerInterface
     /**
      * @inheritdoc
      */
-    public function formatAlias($alias)
+    public function formatAlias(string $alias): string
     {
         return Console::ansiFormat($alias, [Console::FG_BLUE]);
     }
@@ -97,7 +97,7 @@ class ConsoleLogger extends \yii\base\Component implements LoggerInterface
     /**
      * @inheritdoc
      */
-    public function formatAttribute($attribute)
+    public function formatAttribute(string $attribute): string
     {
         return Console::ansiFormat($attribute, [Console::FG_YELLOW]);
     }
@@ -105,7 +105,7 @@ class ConsoleLogger extends \yii\base\Component implements LoggerInterface
     /**
      * @inheritdoc
      */
-    public function formatMessage($message)
+    public function formatMessage(string $message): string
     {
         return Console::ansiFormat($message, [Console::FG_PURPLE]);
     }
@@ -113,7 +113,7 @@ class ConsoleLogger extends \yii\base\Component implements LoggerInterface
     /**
      * @inheritdoc
      */
-    public function startFixture($args = [])
+    public function startFixture(array $args = [])
     {
         $this->notify(self::MESSAGE_START_FIXTURE, $args);
     }
@@ -121,7 +121,7 @@ class ConsoleLogger extends \yii\base\Component implements LoggerInterface
     /**
      * @inheritdoc
      */
-    public function savedRecord($args = [])
+    public function savedRecord(array $args = [])
     {
         $this->notify(self::MESSAGE_SAVED_RECORD, $args);
     }
@@ -129,7 +129,7 @@ class ConsoleLogger extends \yii\base\Component implements LoggerInterface
     /**
      * @inheritdoc
      */
-    public function checkValidation($args = [])
+    public function checkValidation(array $args = [])
     {
         $this->notify(self::MESSAGE_CHECK_VALIDATION, $args);
     }
@@ -137,7 +137,7 @@ class ConsoleLogger extends \yii\base\Component implements LoggerInterface
     /**
      * @inheritdoc
      */
-    public function validationCorrect($args = [])
+    public function validationCorrect(array $args = [])
     {
         $this->notify(self::MESSAGE_VALIDATION_CORRECT, $args);
     }
@@ -145,7 +145,7 @@ class ConsoleLogger extends \yii\base\Component implements LoggerInterface
     /**
      * @inheritdoc
      */
-    public function finishFixture($args = [])
+    public function finishFixture(array $args = [])
     {
         $this->notify(self::MESSAGE_FINISH_FIXTURE, $args);
     }
@@ -153,7 +153,7 @@ class ConsoleLogger extends \yii\base\Component implements LoggerInterface
     /**
      * @inheritdoc
      */
-    public function saveException($args = [])
+    public function saveException(array $args = [])
     {
         $this->error(self::ERROR_SAVE_EXCEPTION, $args);
     }
@@ -161,7 +161,7 @@ class ConsoleLogger extends \yii\base\Component implements LoggerInterface
     /**
      * @inheritdoc
      */
-    public function validationErrorNotFound($args = [])
+    public function validationErrorNotFound(array $args = [])
     {
         $this->error(self::ERROR_VALIDATION_ERROR_NOT_FOUND, $args);
     }
@@ -169,7 +169,7 @@ class ConsoleLogger extends \yii\base\Component implements LoggerInterface
     /**
      * @inheritdoc
      */
-    public function validationMessageNotFound($args = [])
+    public function validationMessageNotFound(array $args = [])
     {
         $this->error(self::ERROR_VALIDATION_MESSAGE_NOT_FOUND, $args);
     }
@@ -177,7 +177,7 @@ class ConsoleLogger extends \yii\base\Component implements LoggerInterface
     /**
      * @inheritdoc
      */
-    public function validationUnexpected($args = [])
+    public function validationUnexpected(array $args = [])
     {
         $this->error(self::ERROR_VALIDATION_UNEXCPECTED, $args);
     }
