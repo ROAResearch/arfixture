@@ -1,9 +1,8 @@
 <?php
-namespace tecnocen\arfixture\tests;
+namespace roaresearch\yii2\arfixture\tests;
 
-use tecnocen\arfixture\ARFixture;
-use tecnocen\arfixture\tests\data\Customer;
-use tecnocen\arfixture\tests\data\CustomerFixture;
+use roaresearch\yii2\arfixture\ARFixture;
+use roaresearch\yii2\arfixture\tests\data\{Customer, CustomerFixture};
 use Yii;
 
 /**
@@ -12,7 +11,7 @@ use Yii;
  */
 class ARFixtueTest extends DatabaseTestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->mockApplication();

@@ -1,10 +1,10 @@
 <?php
 
-namespace tecnocen\arfixture\tests\data;
+namespace roaresearch\yii2\arfixture\tests\data;
 
-class CustomerFixture extends \tecnocen\arfixture\ARFixture
+class CustomerFixture extends \roaresearch\yii2\arfixture\ARFixture
 {
-    public $modelClass = 'tecnocen\arfixture\tests\data\Customer';
+    public $modelClass = Customer::class;
 
     protected function getData()
     {

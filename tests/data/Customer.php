@@ -1,5 +1,5 @@
 <?php
-namespace tecnocen\arfixture\tests\data;
+namespace roaresearch\yii2\arfixture\tests\data;
 
 /**
  * @property integer $id

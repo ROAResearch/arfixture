@@ -1,13 +1,13 @@
 <?php
 
-namespace tecnocen\arfixture\tests;
+namespace roaresearch\yii2\arfixture\tests;
 
 use yii\helpers\ArrayHelper;
 
 /**
  * This is the base class for all yii framework unit tests.
  */
-abstract class TestCase extends \PHPUnit_Framework_TestCase
+abstract class TestCase extends \PHPUnit\Framework\TestCase
 {
     public static $params;
 
@@ -15,7 +15,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
      * Clean up after test.
      * By default the application created with [[mockApplication]] will be destroyed.
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
         $this->destroyApplication();

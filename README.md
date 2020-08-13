@@ -1,7 +1,7 @@
-Tecnocen.com Yii2 Active Record Fixture
-=========================
+Yii2 Active Record Fixture
+==========================
 
-[![Latest Stable Version](https://poser.pugx.org/tecnocen/yii2-arfixture/v/stable)](https://packagist.org/packages/tecnocen/yii2-arfixture) [![Total Downloads](https://poser.pugx.org/tecnocen/yii2-arfixture/downloads)](https://packagist.org/packages/tecnocen/yii2-arfixture) [![Latest Unstable Version](https://poser.pugx.org/tecnocen/yii2-arfixture/v/unstable)](https://packagist.org/packages/tecnocen/yii2-arfixture) [![License](https://poser.pugx.org/tecnocen/yii2-arfixture/license)](https://packagist.org/packages/tecnocen/yii2-arfixture)
+[![Latest Stable Version](https://poser.pugx.org//yii2-arfixture/v/stable)](https://packagist.org/packages/roaresearch/yii2-arfixture) [![Total Downloads](https://poser.pugx.org/roaresearch/yii2-arfixture/downloads)](https://packagist.org/packages/roaresearch/yii2-arfixture) [![Latest Unstable Version](https://poser.pugx.org/roaresearch/yii2-arfixture/v/unstable)](https://packagist.org/packages/roaresearch/yii2-arfixture) [![License](https://poser.pugx.org/roaresearch/yii2-arfixture/license)](https://packagist.org/packages/roaresearch/yii2-arfixture)
 
 Library to load data fixutres using using the methods defined by `yii\db\ActiveRecord` and show progress log.
 
@@ -12,13 +12,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```bash
-composer require --prefer-dist "tecnocen/yii2-arfixture:*"
+composer require --prefer-dist "roaresearch/yii2-arfixture:*"
 ```
 
 or add
 
 ```
-"tecnocen/yii2-arfixture": "*"
+"roaresearch/yii2-arfixture": "*"
 ```
 
 to the `require` section of your `composer.json` file.
@@ -30,10 +30,11 @@ the name of the table and the `yii\db\Schema::insert()` method which means all
 the methods defined in the model such as validations, events, behaviors and even
 table prefix are ignored.
 
-`tecnocen\arfixutre\ARFixture` loads fixtures by creating a model using the
-`$modelClass` property and then passes by all the workflow of saving the data
-using `ActiveRecord` considering scenarios, exceptions, events, safe attributes,
-validation errors and showing detailed information to the user of the procedure.
+`roaresearch\yii2\arfixutre\ARFixture` loads fixtures by creating a model using
+the `$modelClass` property and then passes by all the workflow of saving the
+data using `ActiveRecord` considering scenarios, exceptions, events, safe
+attributes, validation errors and showing detailed information to the user of
+the procedure.
 
 | \                           | ARFixture              | ActiveFixture & Fixture
 | --------------------------- | ---------------------- | -----------------------
@@ -56,7 +57,7 @@ validation errors and showing detailed information to the user of the procedure.
 ```php
 class UserFixture extends ARFixture
 {
-    public $modelClass = 'common\models\User';
+    public $modelClass = User::class;
 }
 ```
 
