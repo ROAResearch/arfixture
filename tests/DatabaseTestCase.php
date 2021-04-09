@@ -1,16 +1,18 @@
 <?php
 namespace roaresearch\yii2\arfixture\tests;
 
+use Yii;
 use yii\db\Connection;
 
 abstract class DatabaseTestCase extends TestCase
 {
     protected $database;
-    protected $driverName = 'mysql';
+    protected string $driverName = 'mysql';
+
     /**
      * @var Connection
      */
-    private $_db;
+    private Connection $_db;
 
     protected function setUp(): void
     {
@@ -33,19 +35,23 @@ abstract class DatabaseTestCase extends TestCase
         if ($this->_db) {
             $this->_db->close();
         }
+
         $this->destroyApplication();
     }
 
     /**
      * @param  boolean $reset whether to clean up the test database
      * @param  boolean $open  whether to open and populate test database
-     * @return \yii\db\Connection
+     * @return Connection
      */
-    public function getConnection($reset = true, $open = true)
-    {
+    public function getConnection(
+        bool $reset = true,
+        bool $open = true
+    ): Connection {
         if (!$reset && $this->_db) {
             return $this->_db;
         }
+
         $config = $this->database;
         if (isset($config['fixture'])) {
             $fixture = $config['fixture'];
@@ -56,21 +62,23 @@ abstract class DatabaseTestCase extends TestCase
         try {
             $this->_db = $this->prepareDatabase($config, $fixture, $open);
         } catch (\Exception $e) {
-            $this->markTestSkipped("Something wrong when preparing database: " . $e->getMessage());
+            $this->markTestSkipped(
+                "Something wrong when preparing database: " . $e->getMessage()
+            );
         }
         return $this->_db;
     }
 
     public function prepareDatabase($config, $fixture, $open = true)
     {
-        if (!isset($config['class'])) {
-            $config['class'] = 'yii\db\Connection';
-        }
+        $config['class'] ??= Connection::class;
+
         /* @var $db \yii\db\Connection */
-        $db = \Yii::createObject($config);
+        $db = Yii::createObject($config);
         if (!$open) {
             return $db;
         }
+
         $db->open();
         if ($fixture !== null) {
             if ($this->driverName === 'oci') {

@@ -11,16 +11,16 @@ use yii\helpers\Console;
 class ConsoleLogger extends \yii\base\Component implements LoggerInterface
 {
     /**
-     * @var boolean if the logger must show error messages only.
+     * @var bool if the logger must show error messages only.
      * @see [[getSilent()]]
      * @see [[setSilent()]]
      */
-    private $silent = false;
+    private bool $silent = false;
 
     /**
      * @var string character to call attention on a failed test.
      */
-    public $exclamation;
+    public ?string $exclamation;
 
     /**
      * @inheritdoc
@@ -28,12 +28,10 @@ class ConsoleLogger extends \yii\base\Component implements LoggerInterface
     public function init()
     {
         parent::init();
-        if ($this->exclamation === null) {
-            $this->exclamation =  Console::ansiFormat('!', [
-                Console::FG_GREEN,
-                Console::BG_RED
-            ]);
-        }
+        $this->exclamation ??= Console::ansiFormat('!', [
+            Console::FG_GREEN,
+            Console::BG_RED
+        ]);
     }
 
     /**
@@ -41,7 +39,7 @@ class ConsoleLogger extends \yii\base\Component implements LoggerInterface
      */
     public function setSilent(bool $silent)
     {
-        $this->silent = (bool)$silent;
+        $this->silent = $silent;
     }
 
     /**
@@ -57,13 +55,11 @@ class ConsoleLogger extends \yii\base\Component implements LoggerInterface
      */
     public function notify(string $message, array $args = [])
     {
-        if (!$this->silent) {
-            Console::output(Yii::t(
-                'yii',
-                $message,
-                $args
-            ));
-        }
+        !$this->silent ?: Console::output(Yii::t(
+            'yii',
+            $message,
+            $args
+        ));
     }
 
     /**

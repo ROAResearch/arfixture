@@ -20,33 +20,32 @@ class ARFixture extends \yii\test\ActiveFixture
     /**
      * @var string scenario to be used when its not defined on the record.
      */
-    public $scenarioDefault = Model::SCENARIO_DEFAULT;
+    public string $scenarioDefault = Model::SCENARIO_DEFAULT;
 
     /**
-     * @var LoggerInterface used for the `notify()` and `error()`` methods
+     * @var array|LoggerInterface used for the `notify()` and `error()`` methods
      */
-    public $logger = [];
+    public array|LoggerInterface $logger = [];
 
     /**
      * @var int number of tests passed.
      */
-    public $passed = 0;
+    public int $passed = 0;
 
     /**
      * @var int number of tests failed
      */
-    public $failed = 0;
+    public int $failed = 0;
 
     /**
      * @inheritdoc
      */
     public function init()
     {
-        if (empty($this->modelClass)) {
-            throw new InvalidConfigException(
-                '`$modelClass` can not be blank.'
-            );
-        }
+        $this->modelClass ?: throw new InvalidConfigException(
+            '`$modelClass` can not be blank.'
+        );
+ 
         parent::init();
         if (is_array($this->logger)) {
             $this->logger = Yii::createObject(ArrayHelper::merge(
@@ -54,20 +53,14 @@ class ARFixture extends \yii\test\ActiveFixture
                 $this->logger
             ));
         }
-        if (!$this->logger instanceof LoggerInterface) {
-            throw new InvalidConfigException(
-                '`$logger` must impelement the '
-                    . LoggerInterface::class. '.'
-            );
-        }
     }
 
     /**
      * @inheritdoc
      */
-    public function load()
+    public function load(): void
     {
-        $formattedClass = $this->logger->formatClass(static::className());
+        $formattedClass = $this->logger->formatClass($this::class);
         $this->logger->startFixture(['class' => $formattedClass]);
 
         $this->resetTable();
@@ -134,7 +127,7 @@ class ARFixture extends \yii\test\ActiveFixture
             } catch (\Exception $e) {
                 $this->logger->saveException([
                     'alias' => $formattedAlias,
-                    'exception' => $this->logger->formatClass(get_class($e)),
+                    'exception' => $this->logger->formatClass($e::class),
                     'message' => $this->logger->formatMessage($e->getMessage()),
                 ]);
                 $this->failed++;
@@ -167,8 +160,10 @@ class ARFixture extends \yii\test\ActiveFixture
      * ]
      * ```
      */
-    public function checkErrors(array $modelErrors, array $attributeErrors)
-    {
+    public function checkErrors(
+         array $modelErrors,
+         array $attributeErrors
+    ): void {
         foreach ($attributeErrors as $key => $value) {
             if (is_int($key)) {
                 $attribute = $value;
@@ -223,7 +218,7 @@ class ARFixture extends \yii\test\ActiveFixture
      * @return array
      * @see evaluateRecord()
      */
-    protected function getData()
+    protected function getData(): array
     {
         if ($this->dataFile === null) {
             $class = new \ReflectionClass($this);

@@ -2,7 +2,13 @@
 
 namespace roaresearch\yii2\arfixture\tests;
 
-use yii\helpers\ArrayHelper;
+use Yii;
+use yii\{
+    base\Application as baseApplication,
+    console\Application as ConsoleApplication,
+    helpers\ArrayHelper,
+    web\Application as WebApplication
+};
 
 /**
  * This is the base class for all yii framework unit tests.
@@ -27,11 +33,9 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      * @param  mixed $default default value to use when param is not set.
      * @return mixed  the value of the configuration param
      */
-    public static function getParam($name, $default = null)
+    public static function getParam(string $name, mixed $default = null): mixed
     {
-        if (static::$params === null) {
-            static::$params = require(__DIR__ . '/data/config.php');
-        }
+        static::$params ??= require(__DIR__ . '/data/config.php');
 
         return isset(static::$params[$name]) ? static::$params[$name] : $default;
     }
@@ -42,8 +46,10 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      * @param array $config The application configuration, if needed
      * @param string $appClass name of the application class to create
      */
-    protected function mockApplication($config = [], $appClass = '\yii\console\Application')
-    {
+    protected function mockApplication(
+        array $config = [],
+        string $appClass = ConsoleApplication::class
+    ): BaseApplication {
         new $appClass(ArrayHelper::merge([
             'id' => 'testapp',
             'basePath' => __DIR__,
@@ -51,7 +57,10 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
         ], $config));
     }
 
-    protected function mockWebApplication($config = [], $appClass = '\yii\web\Application')
+    protected function mockWebApplication(
+        array $config = [],
+        $appClass = WebApplication::class
+    ): BaseApplication 
     {
         new $appClass(ArrayHelper::merge([
             'id' => 'testapp',
@@ -67,12 +76,13 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
         ], $config));
     }
 
-    protected function getVendorPath()
+    protected function getVendorPath(): string
     {
         $vendor = dirname(dirname(__DIR__)) . '/vendor';
         if (!is_dir($vendor)) {
             $vendor = dirname(dirname(dirname(dirname(__DIR__))));
         }
+
         return $vendor;
     }
 
@@ -81,10 +91,11 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      */
     protected function destroyApplication()
     {
-        if (\Yii::$app && \Yii::$app->has('session', true)) {
-            \Yii::$app->session->close();
+        if (Yii::$app && Yii::$app->has('session', true)) {
+            Yii::$app->session->close();
         }
-        \Yii::$app = null;
+
+        Yii::$app = null;
     }
 
     /**
@@ -93,8 +104,10 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      * @param string $expected
      * @param string $actual
      */
-    public function assertEqualsWithoutLE($expected, $actual)
-    {
+    public function assertEqualsWithoutLE(
+        string $expected,
+        string $actual
+    ): void {
         $expected = str_replace("\r\n", "\n", $expected);
         $actual = str_replace("\r\n", "\n", $actual);
 

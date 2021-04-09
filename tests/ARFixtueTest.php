@@ -18,7 +18,7 @@ class ARFixtueTest extends DatabaseTestCase
         Yii::$app->set('db', $this->getConnection());
     }
 
-    public function testCheckErrors()
+    public function testCheckErrors(): void
     {
         $fixture = new ARFixture(['modelClass' => Customer::className()]);
 
@@ -41,7 +41,7 @@ class ARFixtueTest extends DatabaseTestCase
         $this->assertEquals(3, $fixture->failed);
     }
 
-    public function testLoad()
+    public function testLoad(): void
     {
         $fixture = new CustomerFixture();
         $fixture->load();

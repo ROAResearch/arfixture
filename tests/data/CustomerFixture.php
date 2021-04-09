@@ -4,9 +4,9 @@ namespace roaresearch\yii2\arfixture\tests\data;
 
 class CustomerFixture extends \roaresearch\yii2\arfixture\ARFixture
 {
-    public $modelClass = Customer::class;
+    public string $modelClass = Customer::class;
 
-    protected function getData()
+    protected function getData(): array
     {
         return [
             ['name' => 'Customer 1', 'email' => 'customer1@tecnocen.com'],

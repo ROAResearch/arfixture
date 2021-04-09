@@ -12,59 +12,60 @@ interface LoggerInterface
      * Message used when the fixture starts.
      * @see startFixture()
      */
-    const MESSAGE_START_FIXTURE = '{class} fixture loading';
+    public const MESSAGE_START_FIXTURE = '{class} fixture loading';
 
     /**
      * Message used when a record is saved successfully.
      * @see savedRecord()
      */
-    const MESSAGE_SAVED_RECORD = '  {alias} saved correctly';
+    public const MESSAGE_SAVED_RECORD = '  {alias} saved correctly';
 
     /**
      * Message used when a record will compare expected validation.
      * @see checkValidation()
      */
-    const MESSAGE_CHECK_VALIDATION = '  {alias} Checking validation';
+    public const MESSAGE_CHECK_VALIDATION = '  {alias} Checking validation';
 
     /**
      * Message used when an attribute is validated correctly.
      * @see validationCorrect()
      */
-    const MESSAGE_VALIDATION_CORRECT = '    {attribute} validated correctly';
+    public const MESSAGE_VALIDATION_CORRECT =
+        '    {attribute} validated correctly';
 
     /**
      * Message used when the fixture finished.
      * @see finishFixture()
      */
-    const MESSAGE_FINISH_FIXTURE =
+    public const MESSAGE_FINISH_FIXTURE =
         '{class} finished with {passed} passed / {failed} failed';
 
     /**
      * Error message used when saving a record throws an exception.
      * @see saveException()
      */
-    const ERROR_SAVE_EXCEPTION =
+    public const ERROR_SAVE_EXCEPTION =
         '  {alias} throwed {exception} with message {message}';
 
     /**
      * Error message used when an expected validation error is not found.
      * @see validationErrorNotFound()
      */
-    const ERROR_VALIDATION_ERROR_NOT_FOUND =
+    public const ERROR_VALIDATION_ERROR_NOT_FOUND =
         '    {attribute} expected error not found';
 
     /**
      * Error message used when an expected validation message is not found.
      * @see validationMessageNotFound()
      */
-    const ERROR_VALIDATION_MESSAGE_NOT_FOUND =
+    public const ERROR_VALIDATION_MESSAGE_NOT_FOUND =
         '    {attribute} error message "{message}" doesn\'t match "{error}"';
 
     /**
      * Error message used when validation find an unexpected error.
      * @see validationUnexpected()
      */
-    const ERROR_VALIDATION_UNEXCPECTED =
+    public const ERROR_VALIDATION_UNEXCPECTED =
         '    {attribute} unexpected validation error "{error}"';
 
     /**
