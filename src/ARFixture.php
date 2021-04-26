@@ -43,7 +43,7 @@ class ARFixture extends \yii\test\ActiveFixture
     public function init()
     {
         $this->modelClass ?: throw new InvalidConfigException(
-            '`$modelClass` can not be blank.'
+            $this::class . '::$modelClass can not be blank.'
         );
  
         parent::init();

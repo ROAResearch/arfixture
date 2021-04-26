@@ -55,7 +55,7 @@ class ConsoleLogger extends \yii\base\Component implements LoggerInterface
      */
     public function notify(string $message, array $args = [])
     {
-        !$this->silent ?: Console::output(Yii::t(
+        $this->silent ?: Console::output(Yii::t(
             'yii',
             $message,
             $args
